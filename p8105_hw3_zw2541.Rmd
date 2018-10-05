@@ -1,0 +1,12 @@
+---
+title: "p8105_hw3_zw2541"
+author: "Zixu_Wang"
+date: "10/5/2018"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
