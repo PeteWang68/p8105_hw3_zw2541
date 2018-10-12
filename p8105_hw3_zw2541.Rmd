@@ -7,6 +7,23 @@ output: github_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
 ```
 
+## Problem 1
+
+#### Read and clean the data
+```{r}
+library(p8105.datasets)
+
+data("brfss_smart2010")
+
+brfss = brfss_smart2010 %>% 
+  janitor::clean_names() %>% 
+  filter(topic == "Overall Health") %>% 
+  filter(response %in% c("Excellent", "Very good","Good", "Fair", "Poor")) %>% 
+  mutate(response = factor(response, levels = c("Excellent", "Very good","Good", "Fair", "Poor")))
+```
+
+#### Using this dataset, do or answer the following:
 
