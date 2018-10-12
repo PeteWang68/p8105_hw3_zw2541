@@ -61,3 +61,6 @@ brfss %>%
   guides(color = guide_legend(ncol = 15))
 ```
 
+The figure above shows the number of locations being observed in each state from 2002 to 2010. For most states, number of locations approximately keep the same during these eight years and always below 20 locations. However, the number of locations in Florida changed dramaticly from 2006 to 2008.
+
+(3) Make a table showing, for the years 2002, 2006, and 2010, the mean and standard deviation of the proportion of “Excellent” responses across locations in NY State.
