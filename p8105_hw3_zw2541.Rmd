@@ -94,3 +94,33 @@ brfss %>%
 ```
 
 First, we could conclude from the figures above that the mean of each response remained constent from 2002 to 2010. Second, the "Very good" response has the highest mean among this response category and the "Poor" response has the lowest. Third, the mean increases from "Poor" to "Very good", and decreases when it comes to "Excellent".
+
+## Problem 2
+
+#### Read and clean the data
+
+```{r}
+data(instacart)
+instacart = janitor::clean_names(instacart)
+skimr::skim(instacart)
+```
+
+This "instacart" dataset documents the shoppoing history of different client. From the table above, we know that there are total 1384617 observations and 15 variables. Among these 15 variables, 4 are character variables ("aisle", "department", "eval_set", "product_name"), and others are all numeric variables. The meaning of each variables are showing below:
+
+* order_id: the id number of each order
+* product_id: the id number of each product
+* add_to_cart_order: the order of each product be added to the cart by a client
+* reordered: whether this product has been ordered before (1 means TRUE, 0 means FALSE)
+* user_id: the id number of the user
+* eval_set: evaluation set
+* order_number: the time of this order among the shopping history
+* order_dow: the day in a week when the order has been placed(0 means Monday and 6 means Sunday)
+* order_hour_of_day: the time in a day when the order has been placed
+* days_since_prior_order: the days between this order and the client's previous order
+* product_name: the name of the product
+* aisle_id: the id number of aisle
+* department_id: the id number of department
+* aisle: the name of the aisle the product belongs to
+* department: the name of the department
+
+For example, user(112108) placed an order(order_id: 1) of eight products(Bulgarian Yogurt, Organic 4% Milk Fat Whole Milk Cottage Cheese, etc) at 10am on Friday. And the order is this user's fourth order.
