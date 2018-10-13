@@ -141,7 +141,7 @@ There are 134 distinct aisles, and "fresh vegetables" aisle is the most items or
 
 (2) Make a plot that shows the number of items ordered in each aisle.
 
-```{r}
+```{r, fig.height = 18}
   instacart %>% 
   group_by(aisle) %>% 
   summarize(n_aisle = n()) %>% 
@@ -157,3 +157,16 @@ There are 134 distinct aisles, and "fresh vegetables" aisle is the most items or
 ```
 
 Form the figure above, we know that the number of items in "fresh vegetables" and "fresh fruits" are much higher then any other asiles, and approximately most of the asiles about daily diet (like vegetables, fruits and drinks) is higher than others. This situation illustrates that people tend to buy daily food here. 
+(3) Make a table showing the most popular item in each of the aisles "baking ingredients", "dog food care", and "packaged vegetables fruits".
+
+```{r}
+instacart %>% 
+  group_by(product_name, aisle) %>% 
+  filter(aisle %in% c("baking ingredients", "dog food care", "packaged vegetables fruits")) %>% 
+  summarize(n_items = n()) %>% 
+  group_by(aisle) %>% 
+  filter(n_items == max(n_items)) %>% 
+  knitr::kable()
+```
+
+The most popular item in aisle "baking ingredients" is "Light Brown Sugar", the most popular item in aisle "dog food care" is "Snack Sticks Chicken & Rice Recipe Dog Treats", and the most popular item in aisle "packaged vegetables fruits" is "Organic Baby Spinach".
