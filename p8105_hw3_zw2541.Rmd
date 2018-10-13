@@ -124,3 +124,17 @@ This "instacart" dataset documents the shoppoing history of different client. Fr
 * department: the name of the department
 
 For example, user(112108) placed an order(order_id: 1) of eight products(Bulgarian Yogurt, Organic 4% Milk Fat Whole Milk Cottage Cheese, etc) at 10am on Friday. And the order is this user's fourth order.
+
+#### Using this dataset, do or answer the following:
+
+(1) How many aisles are there, and which aisles are the most items ordered from?
+
+```{r}
+n_distinct(instacart$aisle)
+
+instacart %>% 
+  group_by(aisle) %>% 
+  summarize(n_aisle = n()) %>% 
+  arrange(desc(n_aisle))
+```
+There are 134 distinct aisles, and "fresh vegetables" aisle is the most items ordered from.
