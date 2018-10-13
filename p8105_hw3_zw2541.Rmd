@@ -138,3 +138,22 @@ instacart %>%
   arrange(desc(n_aisle))
 ```
 There are 134 distinct aisles, and "fresh vegetables" aisle is the most items ordered from.
+
+(2) Make a plot that shows the number of items ordered in each aisle.
+
+```{r}
+  instacart %>% 
+  group_by(aisle) %>% 
+  summarize(n_aisle = n()) %>% 
+  arrange(desc(n_aisle)) %>% 
+  mutate(aisle = forcats::fct_reorder(aisle, n_aisle, .desc = FALSE)) %>% 
+  ggplot(aes(x = aisle, y = n_aisle)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  labs(
+    title = "the Number of Items Ordered in Each Aisle",
+    x = "Aisle",
+    y = "Number of Items") 
+```
+
+Form the figure above, we know that the number of items in "fresh vegetables" and "fresh fruits" are much higher then any other asiles, and approximately most of the asiles about daily diet (like vegetables, fruits and drinks) is higher than others. This situation illustrates that people tend to buy daily food here. 
