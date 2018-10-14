@@ -114,7 +114,7 @@ This "instacart" dataset documents the shoppoing history of different client. Fr
 * user_id: the id number of the user
 * eval_set: evaluation set
 * order_number: the time of this order among the shopping history
-* order_dow: the day in a week when the order has been placed(0 means Monday and 6 means Sunday)
+* order_dow: the day in a week when the order has been placed(0 means Sunday, 1 means Monday and 6 means Saturday)
 * order_hour_of_day: the time in a day when the order has been placed
 * days_since_prior_order: the days between this order and the client's previous order
 * product_name: the name of the product
@@ -123,7 +123,7 @@ This "instacart" dataset documents the shoppoing history of different client. Fr
 * aisle: the name of the aisle the product belongs to
 * department: the name of the department
 
-For example, user(112108) placed an order(order_id: 1) of eight products(Bulgarian Yogurt, Organic 4% Milk Fat Whole Milk Cottage Cheese, etc) at 10am on Friday. And the order is this user's fourth order.
+For example, user(112108) placed an order(order_id: 1) of eight products(Bulgarian Yogurt, Organic 4% Milk Fat Whole Milk Cottage Cheese, etc) at 10am on Thursday. And the order is this user's fourth order.
 
 #### Using this dataset, do or answer the following:
 
@@ -170,3 +170,19 @@ instacart %>%
 ```
 
 The most popular item in aisle "baking ingredients" is "Light Brown Sugar", the most popular item in aisle "dog food care" is "Snack Sticks Chicken & Rice Recipe Dog Treats", and the most popular item in aisle "packaged vegetables fruits" is "Organic Baby Spinach".
+
+(4) Make a table showing the mean hour of the day at which Pink Lady Apples and Coffee Ice Cream are ordered on each day of the week; format this table for human readers (i.e. produce a 2 x 7 table).
+
+```{r}
+instacart$order_dow = recode(instacart$order_dow, "0" = "Sunday", "6" = "Saturday", "5" = "Friday", "4" = "Thursday", "3" = "Wednesday", "2" = "Tuesday", "1" = "Monday") %>% 
+  factor(levels = c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"))
+instacart %>% 
+  group_by(product_name, order_dow) %>% 
+  filter(product_name %in% c("Pink Lady Apples", "Coffee Ice Cream")) %>% 
+  summarize(mean_hour = mean(order_hour_of_day)) %>% 
+  spread(key = order_dow, value = mean_hour) %>% 
+  knitr::kable()
+```
+
+People tends to buy Coffee Ice Cream around 1pm to 3pm, but on Friday people may buy the cream a little bit earlier, around 12:00 at noon. And people usually buy Pink Lady Apples around noon from 11am to 2pm.
+
