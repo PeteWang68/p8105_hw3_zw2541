@@ -30,7 +30,7 @@ brfss = brfss_smart2010 %>%
 
 #### Using this dataset, do or answer the following:
 
-(1) In 2002, which states were observed at 7 locations?
+* In 2002, which states were observed at 7 locations?
 
 ```{r}
 brfss %>% 
@@ -42,7 +42,7 @@ brfss %>%
 
 In 2002, Connecticut, Florida, and North Carolina were observed at 7 locations.
 
-(2) Make a “spaghetti plot” that shows the number of locations in each state from 2002 to 2010.
+* Make a “spaghetti plot” that shows the number of locations in each state from 2002 to 2010.
 
 ```{r}
 brfss %>% 
@@ -61,7 +61,7 @@ brfss %>%
 
 The figure above shows the number of locations being observed in each state from 2002 to 2010. For most states, number of locations approximately keep the same during these eight years and always below 20 locations. However, the number of locations in Florida changed dramaticly from 2006 to 2008.
 
-(3) Make a table showing, for the years 2002, 2006, and 2010, the mean and standard deviation of the proportion of "Excellent" responses across locations in NY State.
+* Make a table showing, for the years 2002, 2006, and 2010, the mean and standard deviation of the proportion of "Excellent" responses across locations in NY State.
 
 ```{r}
 brfss %>% 
@@ -76,7 +76,7 @@ brfss %>%
 
 The mean and sd of the proportion of "Excellent" are approximately the same in 2002, 2006 and 2010.
 
-(4) For each year and state, compute the average proportion in each response category (taking the average across locations in a state). Make a five-panel plot that shows, for each response category separately, the distribution of these state-level averages over time.
+* For each year and state, compute the average proportion in each response category (taking the average across locations in a state). Make a five-panel plot that shows, for each response category separately, the distribution of these state-level averages over time.
 
 ```{r}
 brfss %>% 
@@ -127,7 +127,7 @@ For example, user(112108) placed an order(order_id: 1) of eight products(Bulgari
 
 #### Using this dataset, do or answer the following:
 
-(1) How many aisles are there, and which aisles are the most items ordered from?
+* How many aisles are there, and which aisles are the most items ordered from?
 
 ```{r}
 n_distinct(instacart$aisle)
@@ -139,7 +139,7 @@ instacart %>%
 ```
 There are 134 distinct aisles, and "fresh vegetables" aisle is the most items ordered from.
 
-(2) Make a plot that shows the number of items ordered in each aisle.
+* Make a plot that shows the number of items ordered in each aisle.
 
 ```{r, fig.height = 18}
   instacart %>% 
@@ -157,7 +157,7 @@ There are 134 distinct aisles, and "fresh vegetables" aisle is the most items or
 ```
 
 Form the figure above, we know that the number of items in "fresh vegetables" and "fresh fruits" are much higher then any other asiles, and approximately most of the asiles about daily diet (like vegetables, fruits and drinks) is higher than others. This situation illustrates that people tend to buy daily food here. 
-(3) Make a table showing the most popular item in each of the aisles "baking ingredients", "dog food care", and "packaged vegetables fruits".
+* Make a table showing the most popular item in each of the aisles "baking ingredients", "dog food care", and "packaged vegetables fruits".
 
 ```{r}
 instacart %>% 
@@ -171,7 +171,7 @@ instacart %>%
 
 The most popular item in aisle "baking ingredients" is "Light Brown Sugar", the most popular item in aisle "dog food care" is "Snack Sticks Chicken & Rice Recipe Dog Treats", and the most popular item in aisle "packaged vegetables fruits" is "Organic Baby Spinach".
 
-(4) Make a table showing the mean hour of the day at which Pink Lady Apples and Coffee Ice Cream are ordered on each day of the week; format this table for human readers (i.e. produce a 2 x 7 table).
+* Make a table showing the mean hour of the day at which Pink Lady Apples and Coffee Ice Cream are ordered on each day of the week; format this table for human readers (i.e. produce a 2 x 7 table).
 
 ```{r}
 instacart$order_dow = recode(instacart$order_dow, "0" = "Sunday", "6" = "Saturday", "5" = "Friday", "4" = "Thursday", "3" = "Wednesday", "2" = "Tuesday", "1" = "Monday") %>% 
@@ -186,3 +186,16 @@ instacart %>%
 
 People tends to buy Coffee Ice Cream around 1pm to 3pm, but on Friday people may buy the cream a little bit earlier, around 12:00 at noon. And people usually buy Pink Lady Apples around noon from 11am to 2pm.
 
+## Problem 3
+
+#### Read and clean the data
+
+```{r}
+data(ny_noaa)
+instacart = janitor::clean_names(ny_noaa)
+skimr::skim(ny_noaa)
+```
+
+This "ny_noaa" dataset documents the everyday weather information from different weather station from 1.1.1981 to 12.31.2010. From the table above, we know that there are total 2595176 observations and 7 variables. The "id" variable is a characteric variable, and it represents the id number of each weather station. The "data" variable is a data variable. "prcp", "snow" and "snwd" are all numeric variables, and they indicates the precipitation, snow and snowdepth. "tmax" and "tmin" are characteric variables, they represent the maximum and minimum temperature. However, this dataset contains a lots of missing data. The "prcp" contains 145838 missing data and "snow" contains 381221 missing data, since there wasn't raining or snowing on that day. The 591786 missing data in "snwd" inllustrate that the snow on that day is not large enough to measure the depth or even no snowing on that day. There are also more than one million missing data in the "tmax" and "tmin" variables.
+
+#### Using this dataset, do or answer the following:
