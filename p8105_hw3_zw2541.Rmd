@@ -53,7 +53,8 @@ brfss %>%
   labs(
         title = "Spaghetti Plot-Number of Locations in Each State from 2002 to 2010",
         y = "Number of locations",
-        x = "Year") +
+        x = "Year",
+        caption = "Data from p8105.datasets package") +
   theme(legend.position = "bottom",
         legend.key.width = unit(.25, 'cm')) +
   guides(color = guide_legend(ncol = 15))
@@ -88,7 +89,8 @@ brfss %>%
   labs(
         title = "Five-Panel Plot-Average Proportion in Each Response Category",
         y = "Average Proportion of Each Response",
-        x = "Year") +
+        x = "Year",
+        caption = "Data from p8105.datasets package") +
   theme(legend.position = "bottom") +
   scale_fill_discrete(name = "Year")
 ```
@@ -153,7 +155,8 @@ There are 134 distinct aisles, and "fresh vegetables" aisle is the most items or
   labs(
     title = "the Number of Items Ordered in Each Aisle",
     x = "Aisle",
-    y = "Number of Items") 
+    y = "Number of Items",
+    caption = "Data from p8105.datasets package") 
 ```
 
 Form the figure above, we know that the number of items in "fresh vegetables" and "fresh fruits" are much higher then any other asiles, and approximately most of the asiles about daily diet (like vegetables, fruits and drinks) is higher than others. This situation illustrates that people tend to buy daily food here. 
@@ -224,3 +227,27 @@ ny_noaa_tidy %>%
 ```
 
 "0" is the most commonly observed value for snowfall, since snowfall is not a frequently occured weather phenomena.
+
+* Make a two-panel plot showing the average max temperature in January and in July in each station across years. Is there any observable / interpretable structure? Any outliers?
+
+```{r, fig.height = 10}
+ny_noaa_tidy %>% 
+  filter(month %in% c("01", "07")) %>% 
+  mutate(month = recode(month, "01" = "January", "07" = "July")) %>% 
+  group_by(id, year, month) %>% 
+  summarize(mean_tmax = mean(tmax, na.rm = T)) %>% 
+  ggplot(aes(x = year, y = mean_tmax)) +
+  geom_boxplot() +
+  facet_grid(~ month) +
+  coord_flip() +
+  labs(
+    title = "Average Max Temperature in January and July in Each Station Across Years",
+    x = "Year",
+    y = "Average Max Temperature",
+    caption = "Data from p8105.datasets package")
+```
+
+The average maximum temperature in January is around 0 degree and the average maximum temperature in July is around 27.5 degree. However, the average maximum temperature in January is more fluctuated compared to July. And both in January and July exist some outliers. There are both higher and lower outliers in January, which means the maximum temperature in NY at that time are really fluctuated among different weather station. And in July, there only exist some lower outliers, which implies that in some areas in NY, the weather can be much lower compared to other areas.
+
+* Make a two-panel plot showing (i) tmax vs tmin for the full dataset (note that a scatterplot may not be the best option); and (ii) make a plot showing the distribution of snowfall values greater than 0 and less than 100 separately by year.
+
